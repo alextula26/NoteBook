@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">NoteBook</string>
+
+    <string name="tab_name_exercises">Активные</string>
+    <string name="tab_name_programm">Выполненные</string>
+
+    <string name="note_title">Наименование</string>
+    <string name="note_date">Дата</string>
+    <string name="note_time">Время</string>
+
+    <string name="dialog_editing_title">Редактирование записи</string>
+    <string name="dialog_removing_message">Вы действительно хотите удалить запись?</string>
+    <string name="removed">Удаление</string>
+
+    <string name="dialog_title">Добавление записи</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <string name="dialog_error_empty_title">Пожалуйста, введите наименование записи!</string>
+    <string name="dialog_error_empty_date">Пожалуйста, введите дату!</string>
+
+    <string name="separator_overdue">Просроченные</string>
+    <string name="separator_today">Сегодняшние</string>
+    <string name="separator_tomorrow">Завтрашние</string>
+    <string name="separator_future">На будущее</string>
+    <string name="separator_title">Separator</string>
+
+    <string name="popupmenu">popupmenu</string>
+    <string name="popupmenu_done">Завершить</string>
+    <string name="popupmenu_open">Открыть</string>
+    <string name="popupmenu_update">Редактировать</string>
+    <string name="popupmenu_delete">Удалить</string>
+
+</resources>
