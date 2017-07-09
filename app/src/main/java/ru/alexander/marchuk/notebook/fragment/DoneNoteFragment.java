@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.alexander.marchuk.notebook.adapter.CurrentNoteAdapter;
 import ru.alexander.marchuk.notebook.adapter.NoteAdapter;
 import ru.alexander.marchuk.notebook.adapter.DoneNoteAdapter;
 import ru.alexander.marchuk.notebook.database.NoteBaseHelper;
@@ -96,5 +97,13 @@ public class DoneNoteFragment extends NoteFragment {
     @Override
     public void moveNote(NoteModel note) {
         mNoteRestoreListener.onNoteRestore(note);
+    }
+
+    @Override
+    public void checkAdapter() {
+        if(mAdapter == null){
+            mAdapter = new DoneNoteAdapter(this);
+            addNoteFromDB();
+        }
     }
 }

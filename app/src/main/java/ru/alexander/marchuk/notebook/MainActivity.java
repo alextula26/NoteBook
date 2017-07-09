@@ -1,6 +1,7 @@
 package ru.alexander.marchuk.notebook;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -140,5 +141,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onNoteEdited(NoteModel updateNote) {
         mCurrentNoteFragment.updateNote(updateNote);
         NoteModelLab.get(getApplicationContext()).updateNote(updateNote);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }

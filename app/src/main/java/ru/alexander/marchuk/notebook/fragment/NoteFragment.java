@@ -139,4 +139,6 @@ public abstract class NoteFragment extends Fragment {
     public abstract void addNoteFromDB();
 
     public abstract void moveNote(NoteModel note);
+
+    public abstract void checkAdapter();
 }

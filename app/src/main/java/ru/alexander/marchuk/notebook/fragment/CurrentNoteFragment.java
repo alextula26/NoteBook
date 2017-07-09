@@ -10,6 +10,7 @@ import ru.alexander.marchuk.notebook.adapter.CurrentNoteAdapter;
 import ru.alexander.marchuk.notebook.adapter.NoteAdapter;
 import ru.alexander.marchuk.notebook.database.NoteBaseHelper;
 import ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteTable;
+import ru.alexander.marchuk.notebook.model.Item;
 import ru.alexander.marchuk.notebook.model.NoteModel;
 import ru.alexander.marchuk.notebook.model.NoteModelLab;
 import ru.alexander.marchuk.notebook.model.NoteSeparator;
@@ -154,5 +155,13 @@ public class CurrentNoteFragment extends NoteFragment {
     @Override
     public void moveNote(NoteModel note) {
         mAddingNoteInDoneListener.onNoteAddedDone(note);
+    }
+
+    @Override
+    public void checkAdapter() {
+        if(mAdapter == null){
+            mAdapter = new CurrentNoteAdapter(this);
+            addNoteFromDB();
+        }
     }
 }
