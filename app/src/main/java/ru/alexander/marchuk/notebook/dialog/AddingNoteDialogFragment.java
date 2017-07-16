@@ -261,4 +261,10 @@ public class AddingNoteDialogFragment extends DialogFragment {
 //        outState.putString(ARG_TITLE, etTitle.getText().toString());
 //        outState.putString(ARG_DATE, etDate.getText().toString());
 //    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mAddingNoteListener = null;
+    }
 }

@@ -1,6 +1,9 @@
 package ru.alexander.marchuk.notebook.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +19,17 @@ import ru.alexander.marchuk.notebook.model.NoteSeparator;
 
 public class CurrentNoteFragment extends NoteFragment {
 
+    private static CurrentNoteFragment sCurrentNoteFragment;
+
+    public static CurrentNoteFragment getInstance(){
+        if(sCurrentNoteFragment == null){
+            sCurrentNoteFragment = new CurrentNoteFragment();
+        }
+        return sCurrentNoteFragment;
+    }
+
     public CurrentNoteFragment() {
+        Log.d("LOG", "CurrentNoteFragment id = " + this.hashCode());
     }
 
     AddingNoteInDoneListener mAddingNoteInDoneListener;
@@ -34,6 +47,12 @@ public class CurrentNoteFragment extends NoteFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement AddingNoteInDoneListener");
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("LOG", "onCreate CurrentNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
     }
 
     @Override
@@ -154,5 +173,11 @@ public class CurrentNoteFragment extends NoteFragment {
     @Override
     public void moveNote(NoteModel note) {
         mAddingNoteInDoneListener.onNoteAddedDone(note);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mAddingNoteInDoneListener = null;
     }
 }

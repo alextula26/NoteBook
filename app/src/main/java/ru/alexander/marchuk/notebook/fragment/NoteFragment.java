@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,9 @@ public abstract class NoteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("LOG", "onActivityCreated id = " + this.hashCode() +
+                " activity id = " + getActivity().hashCode() +
+                " mAdapter count = " + mAdapter.getItemCount());
 
         addNoteFromDB();
     }

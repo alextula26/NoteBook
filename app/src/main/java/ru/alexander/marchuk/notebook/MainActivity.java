@@ -114,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onResume() { super.onResume();}
+
+    @Override
     public void onNoteAdded(NoteModel newNote) {
         // Добавляем новое упражнение
         mCurrentNoteFragment.addNote(newNote, true);
