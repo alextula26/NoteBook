@@ -43,9 +43,9 @@
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:tabIndicatorColor="@android:color/background_light"
-                    app:tabSelectedTextColor="@android:color/background_light"
-                    app:tabTextColor="@android:color/background_light"/>
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabSelectedTextColor="@color/colorAccent"
+                    app:tabTextColor="@color/colorAccent"/>
 
             </android.support.design.widget.AppBarLayout>
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/appbar"
-                android:background="@color/colorPrimaryLight"/>
+                android:background="@color/desktop"/>
 
         </RelativeLayout>
 
