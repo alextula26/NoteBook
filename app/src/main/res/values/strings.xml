@@ -27,6 +27,7 @@
 
     <string name="popupmenu">popupmenu</string>
     <string name="popupmenu_done">Завершить</string>
+    <string name="popupmenu_current">Активировать</string>
     <string name="popupmenu_open">Открыть</string>
     <string name="popupmenu_update">Редактировать</string>
     <string name="popupmenu_delete">Удалить</string>

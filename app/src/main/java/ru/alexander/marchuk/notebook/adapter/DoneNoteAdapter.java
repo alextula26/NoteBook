@@ -6,8 +6,10 @@ import android.animation.ObjectAnimator;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -57,14 +59,6 @@ public class DoneNoteAdapter extends NoteAdapter {
             noteViewHolder.mContainerItem.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.container_uneven));
             noteViewHolder.mContainerItemDate.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.date_uneven));
 
-//            if (position % 2 == 0) {
-//                noteViewHolder.mLinearLayoutContainer.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.container_even));
-//                noteViewHolder.mLinearLayoutDate.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.date_even));
-//            } else {
-//                noteViewHolder.mLinearLayoutContainer.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.container_uneven));
-//                noteViewHolder.mLinearLayoutDate.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.date_uneven));
-//            }
-
             noteViewHolder.mTitle.setText(noteModel.getTitle());
             noteViewHolder.mDate.setText(Utils.getFullDate(noteModel.getDate()));
             noteViewHolder.mTime.setText(Utils.getTime(noteModel.getTime()));
@@ -75,64 +69,84 @@ public class DoneNoteAdapter extends NoteAdapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemView.setEnabled(false);
-                    noteModel.setStatus(NoteModel.STATUS_CURRENT_NOTE);
-                    NoteModelLab.get(getNoteFragment().getActivity())
-                            .updateStatus(noteModel.getId().toString(), Integer.toString(NoteModel.STATUS_CURRENT_NOTE));
-
-                    if (noteModel.getStatus() != NoteModel.STATUS_DONE_NOTE) {
-
-                        ObjectAnimator translationX = ObjectAnimator.ofFloat(itemView,
-                                "translationX", 0f, -itemView.getWidth());
-
-                        ObjectAnimator translationXBack = ObjectAnimator.ofFloat(itemView,
-                                "translationX", -itemView.getWidth(), 0f);
-
-                        AnimatorSet translationSet = new AnimatorSet();
-                        translationSet.play(translationX).before(translationXBack);
-                        translationSet.start();
-
-                        translationX.addListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                itemView.setVisibility(View.GONE);
-                                // Получаем фрагмент и вызываем метод moveNote
-                                getNoteFragment().moveNote(noteModel);
-                                // Удаляем упражнение из фрагмента
-                                removeItem(noteViewHolder.getLayoutPosition());
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animation) {
-
-                            }
-                        });
-                    }
+                    moveItemNote(noteViewHolder, itemView, noteModel);
                 }
             });
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            noteViewHolder.mPopupMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
+                public void onClick(View v) {
+                    PopupMenu popupMenu = new PopupMenu(getNoteFragment().getActivity(), noteViewHolder.mPopupMenu);
+                    popupMenu.inflate(R.menu.popupmenu_done);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public void run() {
-                            getNoteFragment().removeNote(noteViewHolder.getLayoutPosition());
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.popupmenu_done:
+                                    moveItemNote(noteViewHolder, itemView, noteModel);
+                                    break;
+                                case R.id.popupmenu_delete:
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getNoteFragment().removeNote(noteViewHolder.getLayoutPosition());
+                                        }
+                                    }, 1000);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return false;
                         }
-                    }, 1000);
+                    });
+                    popupMenu.show();
+                }
+            });
+        }
+    }
 
-                    return true;
+    private void moveItemNote(final NoteViewHolder noteViewHolder, final View itemView, final NoteModel noteModel) {
+
+        itemView.setEnabled(false);
+        noteModel.setStatus(NoteModel.STATUS_CURRENT_NOTE);
+        NoteModelLab.get(getNoteFragment().getActivity())
+                .updateStatus(noteModel.getId().toString(), Integer.toString(NoteModel.STATUS_CURRENT_NOTE));
+
+        if (noteModel.getStatus() != NoteModel.STATUS_DONE_NOTE) {
+
+            ObjectAnimator translationX = ObjectAnimator.ofFloat(itemView,
+                    "translationX", 0f, -itemView.getWidth());
+
+            ObjectAnimator translationXBack = ObjectAnimator.ofFloat(itemView,
+                    "translationX", -itemView.getWidth(), 0f);
+
+            AnimatorSet translationSet = new AnimatorSet();
+            translationSet.play(translationX).before(translationXBack);
+            translationSet.start();
+
+            translationX.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    itemView.setVisibility(View.GONE);
+                    // Получаем фрагмент и вызываем метод moveNote
+                    getNoteFragment().moveNote(noteModel);
+                    // Удаляем упражнение из фрагмента
+                    removeItem(noteViewHolder.getLayoutPosition());
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
                 }
             });
         }

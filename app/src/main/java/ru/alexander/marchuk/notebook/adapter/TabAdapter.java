@@ -20,8 +20,8 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     public TabAdapter(FragmentManager fm, int numberOftabs) {
         super(fm);
         mNumberOftabs = numberOftabs;
-        mCurrentNoteFragment = CurrentNoteFragment.getInstance();
-        mDoneNoteFragment = DoneNoteFragment.getInstance();
+        mCurrentNoteFragment = CurrentNoteFragment.newInstance();
+        mDoneNoteFragment = DoneNoteFragment.newInstance();
     }
 
     @Override

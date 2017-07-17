@@ -19,7 +19,7 @@ public class DoneNoteFragment extends NoteFragment {
 
     private static DoneNoteFragment sDoneNoteFragment;
 
-    public static DoneNoteFragment getInstance(){
+    public static DoneNoteFragment newInstance(){
         if(sDoneNoteFragment == null){
             sDoneNoteFragment = new DoneNoteFragment();
         }

@@ -21,7 +21,7 @@ public class CurrentNoteFragment extends NoteFragment {
 
     private static CurrentNoteFragment sCurrentNoteFragment;
 
-    public static CurrentNoteFragment getInstance(){
+    public static CurrentNoteFragment newInstance(){
         if(sCurrentNoteFragment == null){
             sCurrentNoteFragment = new CurrentNoteFragment();
         }
@@ -56,11 +56,6 @@ public class CurrentNoteFragment extends NoteFragment {
     }
 
     @Override
-    protected NoteAdapter createAdapter() {
-        return new CurrentNoteAdapter(this);
-    }
-
-    @Override
     public void addNoteFromDB() {
         mAdapter.removeAllItem();
         List<NoteModel> notes = new ArrayList<>();
@@ -72,6 +67,12 @@ public class CurrentNoteFragment extends NoteFragment {
             addNote(notes.get(i), false);
         }
     }
+
+    @Override
+    protected NoteAdapter createAdapter() {
+        return new CurrentNoteAdapter(this);
+    }
+
     @Override
     public void addNote(NoteModel newNote, boolean saveToDB) {
         int position = -1;
