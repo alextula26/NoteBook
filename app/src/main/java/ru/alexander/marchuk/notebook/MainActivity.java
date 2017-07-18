@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements
             setSupportActionBar(toolbar);
         }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_name_exercises));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_name_programm));
 
