@@ -2,6 +2,7 @@ package ru.alexander.marchuk.notebook;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setUI() {
+
+        final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(
+                R.id.collapse_toolbar);
+        collapsingToolbar.setTitle(getResources().getText(R.string.app_name));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
