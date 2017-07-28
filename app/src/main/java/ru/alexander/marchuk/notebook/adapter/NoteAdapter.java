@@ -111,8 +111,6 @@ public abstract class NoteAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     protected class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        protected CardView mContainerItem;
-        protected LinearLayout mContainerItemDate;
         protected TextView mTitle;
         protected TextView mDate;
         protected TextView mTime;
@@ -120,16 +118,12 @@ public abstract class NoteAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public NoteViewHolder(
                 View itemView,
-                CardView container,
-                LinearLayout contentDate,
                 TextView title,
                 TextView date,
                 TextView time,
                 ImageView popupmenu
         ){
             super(itemView);
-            mContainerItem = container;
-            mContainerItemDate = contentDate;
             mTitle = title;
             mDate = date;
             mTime = time;

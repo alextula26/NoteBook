@@ -1,11 +1,13 @@
 package ru.alexander.marchuk.notebook.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.alexander.marchuk.notebook.adapter.CurrentNoteAdapter;
 import ru.alexander.marchuk.notebook.adapter.NoteAdapter;
 import ru.alexander.marchuk.notebook.adapter.DoneNoteAdapter;
 import ru.alexander.marchuk.notebook.database.NoteBaseHelper;
@@ -15,7 +17,17 @@ import ru.alexander.marchuk.notebook.model.NoteModelLab;
 
 public class DoneNoteFragment extends NoteFragment {
 
+    private static DoneNoteFragment sDoneNoteFragment;
+
+    public static DoneNoteFragment newInstance(){
+        if(sDoneNoteFragment == null){
+            sDoneNoteFragment = new DoneNoteFragment();
+        }
+        return sDoneNoteFragment;
+    }
+
     public DoneNoteFragment() {
+        Log.d("LOG", "DoneNoteFragment id = " + this.hashCode());
     }
 
     NoteRestoreListener mNoteRestoreListener;
@@ -33,6 +45,12 @@ public class DoneNoteFragment extends NoteFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement NoteRestoreListener");
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("LOG", "onCreate DoneNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
     }
 
     @Override
@@ -100,10 +118,8 @@ public class DoneNoteFragment extends NoteFragment {
     }
 
     @Override
-    public void checkAdapter() {
-        if(mAdapter == null){
-            mAdapter = new DoneNoteAdapter(this);
-            addNoteFromDB();
-        }
+    public void onDetach() {
+        super.onDetach();
+        mNoteRestoreListener = null;
     }
 }

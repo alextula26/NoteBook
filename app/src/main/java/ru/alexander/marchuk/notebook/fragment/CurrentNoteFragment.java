@@ -1,6 +1,9 @@
 package ru.alexander.marchuk.notebook.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,14 +13,23 @@ import ru.alexander.marchuk.notebook.adapter.CurrentNoteAdapter;
 import ru.alexander.marchuk.notebook.adapter.NoteAdapter;
 import ru.alexander.marchuk.notebook.database.NoteBaseHelper;
 import ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteTable;
-import ru.alexander.marchuk.notebook.model.Item;
 import ru.alexander.marchuk.notebook.model.NoteModel;
 import ru.alexander.marchuk.notebook.model.NoteModelLab;
 import ru.alexander.marchuk.notebook.model.NoteSeparator;
 
 public class CurrentNoteFragment extends NoteFragment {
 
+    private static CurrentNoteFragment sCurrentNoteFragment;
+
+    public static CurrentNoteFragment newInstance(){
+        if(sCurrentNoteFragment == null){
+            sCurrentNoteFragment = new CurrentNoteFragment();
+        }
+        return sCurrentNoteFragment;
+    }
+
     public CurrentNoteFragment() {
+        Log.d("LOG", "CurrentNoteFragment id = " + this.hashCode());
     }
 
     AddingNoteInDoneListener mAddingNoteInDoneListener;
@@ -38,8 +50,9 @@ public class CurrentNoteFragment extends NoteFragment {
     }
 
     @Override
-    protected NoteAdapter createAdapter() {
-        return new CurrentNoteAdapter(this);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("LOG", "onCreate CurrentNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
     }
 
     @Override
@@ -54,6 +67,12 @@ public class CurrentNoteFragment extends NoteFragment {
             addNote(notes.get(i), false);
         }
     }
+
+    @Override
+    protected NoteAdapter createAdapter() {
+        return new CurrentNoteAdapter(this);
+    }
+
     @Override
     public void addNote(NoteModel newNote, boolean saveToDB) {
         int position = -1;
@@ -158,10 +177,8 @@ public class CurrentNoteFragment extends NoteFragment {
     }
 
     @Override
-    public void checkAdapter() {
-        if(mAdapter == null){
-            mAdapter = new CurrentNoteAdapter(this);
-            addNoteFromDB();
-        }
+    public void onDetach() {
+        super.onDetach();
+        mAddingNoteInDoneListener = null;
     }
 }
