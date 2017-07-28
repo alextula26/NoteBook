@@ -12,7 +12,7 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_fon"
+        android:background="@color/primaryLight"
         android:fitsSystemWindows="true"
         tools:context=".MainActivity">
 
@@ -37,7 +37,7 @@
                     android:id="@+id/header"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/photo"
+                    android:background="@drawable/notebook"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"/>
@@ -64,8 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:tabIndicatorColor="@color/tabIndicatorColor"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/colorPrimaryLight"/>
+                app:tabSelectedTextColor="@color/tabSelectedTextColor"
+                app:tabTextColor="@color/white"/>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager

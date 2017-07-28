@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.alexander.marchuk.notebook.R;
@@ -51,14 +49,12 @@ public class CurrentNoteAdapter extends NoteAdapter {
                 LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
                 View view = layoutInflater.inflate(R.layout.recycler_item_note, parent, false);
 
-                CardView container = (CardView) view.findViewById(R.id.container_item);
-                LinearLayout contentDate = (LinearLayout) view.findViewById(R.id.container_item_date);
                 TextView title = (TextView) view.findViewById(R.id.txt_title);
                 TextView date = (TextView) view.findViewById(R.id.txt_date);
                 TextView time = (TextView) view.findViewById(R.id.txt_time);
                 ImageView popupmenu = (ImageView) view.findViewById(R.id.popupmenu);
 
-                return new NoteViewHolder(view, container, contentDate, title, date, time, popupmenu);
+                return new NoteViewHolder(view, title, date, time, popupmenu);
             case TYPE_SEPARATOR:
                 View separator = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.separator, parent, false);
@@ -82,8 +78,8 @@ public class CurrentNoteAdapter extends NoteAdapter {
 
             final View itemView = noteViewHolder.itemView;
 
-            noteViewHolder.mContainerItem.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.container_even));
-            noteViewHolder.mContainerItemDate.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.date_even));
+//            noteViewHolder.mContainerItem.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.container_even));
+//            noteViewHolder.mContainerItemDate.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.date_even));
 
             noteViewHolder.mTitle.setText(noteModel.getTitle());
             noteViewHolder.mDate.setText(Utils.getFullDate(noteModel.getDate()));
@@ -141,6 +137,22 @@ public class CurrentNoteAdapter extends NoteAdapter {
             SeparatorViewHolder separatorViewHolder = (SeparatorViewHolder) holder;
 
             separatorViewHolder.mType.setText(holder.itemView.getResources().getString(separator.getType()));
+            switch (separator.getType()){
+                case NoteSeparator.TYPE_OVERDUE:
+                    separatorViewHolder.mType.setTextColor(ContextCompat.getColor(getNoteFragment().getActivity(), R.color.separator_overdue));
+                    break;
+                case NoteSeparator.TYPE_TODAY:
+                    separatorViewHolder.mType.setTextColor(ContextCompat.getColor(getNoteFragment().getActivity(), R.color.separator_today));
+                    break;
+                case NoteSeparator.TYPE_TOMORROW:
+                    separatorViewHolder.mType.setTextColor(ContextCompat.getColor(getNoteFragment().getActivity(), R.color.separator_tomorrow));
+                    break;
+                case NoteSeparator.TYPE_FUTURE:
+                    separatorViewHolder.mType.setTextColor(ContextCompat.getColor(getNoteFragment().getActivity(), R.color.separator_future));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

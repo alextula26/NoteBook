@@ -5,75 +5,66 @@
     android:id="@+id/container_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
     android:clickable="true"
     android:foreground="?selectableItemBackground">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:background="@color/colorPrimaryDark">
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="0dp"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp">
 
-        <LinearLayout
-            android:id="@+id/container_item_date"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@+id/popupmenu"
+            android:layout_toStartOf="@+id/popupmenu">
 
             <TextView
                 android:id="@+id/txt_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="#006064"
+                android:textSize="13sp"
                 tools:text="date"/>
-        </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/container_item_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
-
-            <RelativeLayout
+            <TextView
+                android:id="@+id/txt_title"
+                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_toLeftOf="@+id/popupmenu"
-                android:layout_toStartOf="@+id/popupmenu">
+                android:layout_below="@+id/txt_date"
+                android:textColor="@color/dark"
+                tools:text="title"/>
 
-                <TextView
-                    android:id="@+id/txt_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    tools:text="time"/>
-
-                <TextView
-                    android:id="@+id/txt_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_time"
-                    android:textColor="@color/white"
-                    tools:text="title"/>
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/popupmenu"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:contentDescription="@string/popupmenu"
-                android:src="@drawable/ic_more_vert_white_24dp"/>
-
+                android:layout_below="@id/txt_title"
+                android:textColor="#b0bec5"
+                android:textSize="13sp"
+                tools:text="time"/>
         </RelativeLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/popupmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/popupmenu"
+            android:src="@mipmap/ic_more_vert"/>
 
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
 

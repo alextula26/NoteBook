@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(
                 R.id.collapse_toolbar);
         collapsingToolbar.setTitle(getResources().getText(R.string.app_name));
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));

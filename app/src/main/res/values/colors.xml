@@ -4,7 +4,7 @@
 <color name="colorPrimaryDark">#0097A7</color>
 <color name="colorPrimaryLight">#B2EBF2</color>
 <color name="colorAccent">#FFC107</color>
-<color name="primaryLight">#D7CCC8</color>
+<color name="primaryLight">#eceff1</color>
 <color name="primaryText">#212121</color>
 <color name="secondaryText">#757575</color>
 <color name="white">#FFFFFF</color>
@@ -13,10 +13,16 @@
 
 <color name="separator">#0097a7</color>
 <color name="tabIndicatorColor">#ffd54f</color>
+<color name="tabSelectedTextColor">#ffe082</color>
 
 <color name="container_uneven">#607D8B</color>
 <color name="container_even">#455A64</color>
 <color name="date_uneven">#546e7a</color>
 <color name="date_even">#37474f</color>
+
+<color name="separator_overdue">#f44336</color>
+<color name="separator_today">#4caf50</color>
+<color name="separator_tomorrow">#ff9800</color>
+<color name="separator_future">#4caf50</color>
 
 </resources>

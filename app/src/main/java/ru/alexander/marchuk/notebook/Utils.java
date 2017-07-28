@@ -39,7 +39,7 @@ public class Utils {
     }
 
     public static String getFullDate(Date date){
-        SimpleDateFormat fullDateFormat = new SimpleDateFormat("EEEE\nd MMM yyyy");
+        SimpleDateFormat fullDateFormat = new SimpleDateFormat("EEEE, d MMM yyyy");
         return fullDateFormat.format(date);
     }
 }
