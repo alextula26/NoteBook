@@ -55,9 +55,9 @@ public abstract class NoteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("LOG", "onActivityCreated id = " + this.hashCode() +
-                " activity id = " + getActivity().hashCode() +
-                " mAdapter count = " + mAdapter.getItemCount());
+//        Log.d("LOG", "onActivityCreated id = " + this.hashCode() +
+//                " activity id = " + getActivity().hashCode() +
+//                " mAdapter count = " + mAdapter.getItemCount());
 
         addNoteFromDB();
     }

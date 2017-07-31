@@ -29,7 +29,7 @@ public class CurrentNoteFragment extends NoteFragment {
     }
 
     public CurrentNoteFragment() {
-        Log.d("LOG", "CurrentNoteFragment id = " + this.hashCode());
+//        Log.d("LOG", "CurrentNoteFragment id = " + this.hashCode());
     }
 
     AddingNoteInDoneListener mAddingNoteInDoneListener;
@@ -52,7 +52,7 @@ public class CurrentNoteFragment extends NoteFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("LOG", "onCreate CurrentNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
+//        Log.d("LOG", "onCreate CurrentNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
     }
 
     @Override

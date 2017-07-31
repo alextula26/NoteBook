@@ -18,6 +18,7 @@
 
     <string name="dialog_error_empty_title">Пожалуйста, введите наименование записи!</string>
     <string name="dialog_error_empty_date">Пожалуйста, введите дату!</string>
+    <string name="dialog_error_empty_time">Пожалуйста, введите время!</string>
 
     <string name="separator_overdue">Просроченные</string>
     <string name="separator_today">Сегодня</string>

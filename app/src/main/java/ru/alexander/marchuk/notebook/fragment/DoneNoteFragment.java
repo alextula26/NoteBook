@@ -27,7 +27,7 @@ public class DoneNoteFragment extends NoteFragment {
     }
 
     public DoneNoteFragment() {
-        Log.d("LOG", "DoneNoteFragment id = " + this.hashCode());
+//        Log.d("LOG", "DoneNoteFragment id = " + this.hashCode());
     }
 
     NoteRestoreListener mNoteRestoreListener;
@@ -50,7 +50,7 @@ public class DoneNoteFragment extends NoteFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("LOG", "onCreate DoneNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
+//        Log.d("LOG", "onCreate DoneNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
     }
 
     @Override

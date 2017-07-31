@@ -13,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -41,11 +42,13 @@ public class AddingNoteDialogFragment extends DialogFragment {
 
     private NoteModel mNote;
 
-//    private String ARG_TITLE = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.title";
-//    private String ARG_DATE = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.date";
+    private String ARG_TITLE = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.title";
+    private String ARG_DATE = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.date";
+    private String ARG_TIME = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.time";
 
-    private boolean bTitle = false;
-    private boolean bDate = false;
+    private boolean bTitle;
+    private boolean bDate;
+    private boolean bTime;
 
     private AddingNoteListener mAddingNoteListener;
 
@@ -98,10 +101,11 @@ public class AddingNoteDialogFragment extends DialogFragment {
 
         builder.setView(container);
 
-//        if(savedInstanceState != null){
-//            etTitle.setText(savedInstanceState.getString(ARG_TITLE));
-//            etDate.setText(savedInstanceState.getString(ARG_DATE));
-//        }
+        if(savedInstanceState != null){
+            mEtTitle.setText(savedInstanceState.getString(ARG_TITLE));
+            mEtDate.setText(savedInstanceState.getString(ARG_DATE));
+            mEtTime.setText(savedInstanceState.getString(ARG_TIME));
+        }
 
         mEtDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +210,7 @@ public class AddingNoteDialogFragment extends DialogFragment {
 
                         if (s.length() == 0) {
                             bDate = false;
-                            mTilDate.setError(getResources().getString(R.string.dialog_error_empty_title));
+                            mTilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
                         } else {
                             bDate = true;
                             mTilDate.setErrorEnabled(false);
@@ -217,6 +221,36 @@ public class AddingNoteDialogFragment extends DialogFragment {
                     }
                 });
 
+                if (mEtTime.length() == 0) {
+                    positiveButton.setEnabled(false);
+                    mTilTime.setError(getResources().getString(R.string.dialog_error_empty_time));
+                }
+
+                mEtTime.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        if (s.length() == 0) {
+                            bTime = false;
+                            mTilTime.setError(getResources().getString(R.string.dialog_error_empty_time));
+                        } else {
+                            bTime = true;
+                            mTilTime.setErrorEnabled(false);
+                        }
+
+                        positiveButtonEnable(positiveButton);
+                    }
+                });
             }
         });
 
@@ -246,21 +280,23 @@ public class AddingNoteDialogFragment extends DialogFragment {
     }
 
     private void positiveButtonEnable(Button positiveButton){
-        if(bTitle && bDate){
+        if(bTitle && bDate && bTime){
             positiveButton.setEnabled(true);
+            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }else{
             positiveButton.setEnabled(false);
+            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }
-
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        outState.putString(ARG_TITLE, etTitle.getText().toString());
-//        outState.putString(ARG_DATE, etDate.getText().toString());
-//    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(ARG_TITLE, mEtTitle.getText().toString());
+        outState.putString(ARG_DATE, mEtDate.getText().toString());
+        outState.putString(ARG_TIME, mEtTime.getText().toString());
+    }
 
     @Override
     public void onDetach() {

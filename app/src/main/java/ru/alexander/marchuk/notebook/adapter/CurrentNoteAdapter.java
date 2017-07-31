@@ -78,9 +78,6 @@ public class CurrentNoteAdapter extends NoteAdapter {
 
             final View itemView = noteViewHolder.itemView;
 
-//            noteViewHolder.mContainerItem.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.container_even));
-//            noteViewHolder.mContainerItemDate.setBackgroundColor(ContextCompat.getColor(mNoteFragment.getActivity(), R.color.date_even));
-
             noteViewHolder.mTitle.setText(noteModel.getTitle());
             noteViewHolder.mDate.setText(Utils.getFullDate(noteModel.getDate()));
             noteViewHolder.mTime.setText(Utils.getTime(noteModel.getTime()));

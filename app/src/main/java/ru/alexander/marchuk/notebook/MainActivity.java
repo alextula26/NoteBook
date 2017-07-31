@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-
     }
 
     @Override
@@ -122,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteAdded(NoteModel newNote) {
-        // Добавляем новое упражнение
         mCurrentNoteFragment.addNote(newNote, true);
     }
 
@@ -133,13 +130,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteAddedDone(NoteModel note) {
-        // Добавляем упражнение в программу
         mDoneNoteFragment.addNote(note, false);
     }
 
     @Override
     public void onNoteRestore(NoteModel note) {
-       // Удаляем упражнение из программы
         mCurrentNoteFragment.addNote(note, false);
     }
 
