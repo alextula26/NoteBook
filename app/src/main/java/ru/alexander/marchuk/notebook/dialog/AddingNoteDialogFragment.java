@@ -159,10 +159,29 @@ public class AddingNoteDialogFragment extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialog) {
                 final Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+
                 if (mEtTitle.length() == 0) {
-                    positiveButton.setEnabled(false);
+                    bTitle = false;
                     mTilTitle.setError(getResources().getString(R.string.dialog_error_empty_title));
+                }else {
+                    bTitle = true;
                 }
+
+                if (mEtDate.length() == 0) {
+                    bDate = false;
+                    mTilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
+                }else{
+                    bDate = true;
+                }
+
+                if (mEtTime.length() == 0) {
+                    bTime = false;
+                    mTilTime.setError(getResources().getString(R.string.dialog_error_empty_time));
+                }else{
+                    bTime = true;
+                }
+
+                positiveButtonEnable(positiveButton);
 
                 mEtTitle.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -188,11 +207,6 @@ public class AddingNoteDialogFragment extends DialogFragment {
 
                     }
                 });
-
-                if (mEtDate.length() == 0) {
-                    positiveButton.setEnabled(false);
-                    mTilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
-                }
 
                 mEtDate.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -220,11 +234,6 @@ public class AddingNoteDialogFragment extends DialogFragment {
 
                     }
                 });
-
-                if (mEtTime.length() == 0) {
-                    positiveButton.setEnabled(false);
-                    mTilTime.setError(getResources().getString(R.string.dialog_error_empty_time));
-                }
 
                 mEtTime.addTextChangedListener(new TextWatcher() {
                     @Override

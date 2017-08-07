@@ -13,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,12 @@ import ru.alexander.marchuk.notebook.model.NoteModel;
 
 public class EditNoteDialogFragment extends DialogFragment {
 
+    private static final String DIALOG_DATE = "DialogDate";
+    private static final int REQUEST_DATE = 0;
+
+    private static final String DIALOG_TIME = "DialogTime";
+    private static final int REQUEST_TIME = 1;
+
     private TextInputLayout mTilTitle;
     private EditText mEtTitle;
     private TextInputLayout mTilDate;
@@ -36,31 +43,30 @@ public class EditNoteDialogFragment extends DialogFragment {
 
     private NoteModel mNote;
 
-    private static final String DIALOG_DATE = "DialogDate";
-    private static final int REQUEST_DATE = 0;
+    private String ARG_TITLE = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.title";
+    private String ARG_DATE = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.date";
+    private String ARG_TIME = "ru.alexander.marchuk.notebook.dialog.addingnotedialogfragment.time";
 
-    private static final String DIALOG_TIME = "DialogTime";
-    private static final int REQUEST_TIME = 1;
+    private boolean bTitle;
+    private boolean bDate;
+    private boolean bTime;
 
     private static final String ARG_NOTE = "ru.alexander.marchuk.fitnessreminder.dialog.note";
-
-    private boolean bTitle = false;
-    private boolean bDate = false;
-
-    public static EditNoteDialogFragment newInstance(NoteModel note){
-        EditNoteDialogFragment editNoteDialogFragment = new EditNoteDialogFragment();
-
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_NOTE, (Serializable) note);
-        editNoteDialogFragment.setArguments(args);
-
-        return editNoteDialogFragment;
-    }
 
     private EditingNoteListener mEditingNoteListener;
 
     public interface EditingNoteListener {
         void onNoteEdited(NoteModel updateNote);
+    }
+
+    public static EditNoteDialogFragment newInstance(NoteModel note){
+        EditNoteDialogFragment editNoteDialogFragment = new EditNoteDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_NOTE, note);
+        editNoteDialogFragment.setArguments(args);
+
+        return editNoteDialogFragment;
     }
 
     @Override
@@ -78,7 +84,6 @@ public class EditNoteDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         mNote = (NoteModel) getArguments().getSerializable(ARG_NOTE);
-
     }
 
     @NonNull
@@ -112,18 +117,15 @@ public class EditNoteDialogFragment extends DialogFragment {
 
         builder.setView(container);
 
-//        if(savedInstanceState != null){
-//            etTitle.setText(savedInstanceState.getString(ARG_TITLE));
-//            etDate.setText(savedInstanceState.getString(ARG_DATE));
-//        }
+        if(savedInstanceState != null){
+            mEtTitle.setText(savedInstanceState.getString(ARG_TITLE));
+            mEtDate.setText(savedInstanceState.getString(ARG_DATE));
+            mEtTime.setText(savedInstanceState.getString(ARG_TIME));
+        }
 
         mEtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mEtDate.length() == 0) {
-                    mEtDate.setText(" ");
-                }
-
                 DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(mNote.getDate());
                 datePickerFragment.setTargetFragment(EditNoteDialogFragment.this, REQUEST_DATE);
                 datePickerFragment.show(getActivity().getSupportFragmentManager(), DIALOG_DATE);
@@ -172,10 +174,29 @@ public class EditNoteDialogFragment extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialog) {
                 final Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+
                 if (mEtTitle.length() == 0) {
-                    positiveButton.setEnabled(false);
+                    bTitle = false;
                     mTilTitle.setError(getResources().getString(R.string.dialog_error_empty_title));
+                }else {
+                    bTitle = true;
                 }
+
+                if (mEtDate.length() == 0) {
+                    bDate = false;
+                    mTilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
+                }else{
+                    bDate = true;
+                }
+
+                if (mEtTime.length() == 0) {
+                    bTime = false;
+                    mTilTime.setError(getResources().getString(R.string.dialog_error_empty_time));
+                }else{
+                    bTime = true;
+                }
+
+                positiveButtonEnable(positiveButton);
 
                 mEtTitle.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -185,7 +206,6 @@ public class EditNoteDialogFragment extends DialogFragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                         if (s.length() == 0) {
                             bTitle = false;
                             mTilTitle.setError(getResources().getString(R.string.dialog_error_empty_title));
@@ -202,11 +222,6 @@ public class EditNoteDialogFragment extends DialogFragment {
 
                     }
                 });
-
-                if (mEtDate.length() == 0) {
-                    positiveButton.setEnabled(false);
-                    mTilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
-                }
 
                 mEtDate.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -232,6 +247,32 @@ public class EditNoteDialogFragment extends DialogFragment {
 
                         positiveButtonEnable(positiveButton);
 
+                    }
+                });
+
+                mEtTime.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        if (s.length() == 0) {
+                            bTime = false;
+                            mTilTime.setError(getResources().getString(R.string.dialog_error_empty_time));
+                        } else {
+                            bTime = true;
+                            mTilTime.setErrorEnabled(false);
+                        }
+
+                        positiveButtonEnable(positiveButton);
                     }
                 });
             }
@@ -263,21 +304,24 @@ public class EditNoteDialogFragment extends DialogFragment {
     }
 
     private void positiveButtonEnable(Button positiveButton){
-        if(bTitle && bDate){
+        if(bTitle && bDate && bTime){
             positiveButton.setEnabled(true);
+            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }else{
             positiveButton.setEnabled(false);
+            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }
 
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        outState.putString(ARG_TITLE, etTitle.getText().toString());
-//        outState.putString(ARG_DATE, etDate.getText().toString());
-//    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(ARG_TITLE, mEtTitle.getText().toString());
+        outState.putString(ARG_DATE, mEtDate.getText().toString());
+        outState.putString(ARG_TIME, mEtTime.getText().toString());
+    }
 
     @Override
     public void onDetach() {
