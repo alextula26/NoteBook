@@ -105,6 +105,7 @@ public class CurrentNoteAdapter extends NoteAdapter {
                                     moveItemNote(noteViewHolder, itemView, noteModel);
                                     break;
                                 case R.id.popupmenu_open:
+                                    getNoteFragment().openNoteActivity(noteModel.getId());
                                     break;
                                 case R.id.popupmenu_update:
                                     getNoteFragment().showNoteEditDialog(noteModel);

@@ -40,7 +40,7 @@ public class NoteModelLab {
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                mNoteModels.add(cursor.getExercise());
+                mNoteModels.add(cursor.getNote());
                 cursor.moveToNext();
             }
         } finally {
@@ -58,7 +58,7 @@ public class NoteModelLab {
                 return null;
             }
             cursor.moveToFirst();
-            return cursor.getExercise();
+            return cursor.getNote();
         }finally {
             cursor.close();
         }

@@ -2,6 +2,7 @@ package ru.alexander.marchuk.notebook.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -9,13 +10,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.UUID;
 
+import ru.alexander.marchuk.notebook.NoteActivity;
 import ru.alexander.marchuk.notebook.R;
 import ru.alexander.marchuk.notebook.adapter.NoteAdapter;
 import ru.alexander.marchuk.notebook.database.NoteBaseHelper;
@@ -55,10 +56,6 @@ public abstract class NoteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        Log.d("LOG", "onActivityCreated id = " + this.hashCode() +
-//                " activity id = " + getActivity().hashCode() +
-//                " mAdapter count = " + mAdapter.getItemCount());
-
         addNoteFromDB();
     }
 
@@ -136,6 +133,12 @@ public abstract class NoteFragment extends Fragment {
     public void showNoteEditDialog(NoteModel note){
         DialogFragment editingNoteDialog = EditNoteDialogFragment.newInstance(note);
         editingNoteDialog.show(getActivity().getSupportFragmentManager(), "EditingNoteDialogFragment");
+    }
+
+    public void openNoteActivity(UUID id){
+        Intent intent = NoteActivity.newIntent(getActivity(), id);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.open_next, R.anim.close_main);
     }
 
     public abstract void findNote(String title);

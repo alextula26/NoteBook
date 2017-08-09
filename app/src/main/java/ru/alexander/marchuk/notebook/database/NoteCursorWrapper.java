@@ -15,7 +15,7 @@ public class NoteCursorWrapper extends CursorWrapper {
         super(cursor);
     }
 
-    public NoteModel getExercise(){
+    public NoteModel getNote(){
         String uuid = getString(getColumnIndex(NoteTable.Cols.UUID));
         String title = getString(getColumnIndex(NoteTable.Cols.TITLE));
         long date = getLong(getColumnIndex(NoteTable.Cols.DATE));

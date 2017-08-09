@@ -32,5 +32,6 @@
     <string name="popupmenu_open">Открыть</string>
     <string name="popupmenu_update">Редактировать</string>
     <string name="popupmenu_delete">Удалить</string>
+    <string name="title_activity_note">NoteActivity</string>
 
 </resources>
