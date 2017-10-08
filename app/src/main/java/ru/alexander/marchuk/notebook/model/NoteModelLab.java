@@ -30,40 +30,6 @@ public class NoteModelLab {
         mDatabase = new NoteBaseHelper(mContext).getWritableDatabase();
     }
 
-    // Получить полный список упражнений
-    public List<NoteModel> getNotes(String selection, String[] selectionArgs, String orderBy) {
-
-        List<NoteModel> mNoteModels = new ArrayList<>();
-
-        NoteCursorWrapper cursor = queryNote(selection, selectionArgs, orderBy);
-
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                mNoteModels.add(cursor.getNote());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return mNoteModels;
-    }
-
-    public NoteModel getNote(String selection, String[] selectionArgs, String orderBy){
-        NoteCursorWrapper cursor = queryNote(selection, selectionArgs, orderBy);
-
-        try {
-            if(cursor.getCount() == 0){
-                return null;
-            }
-            cursor.moveToFirst();
-            return cursor.getNote();
-        }finally {
-            cursor.close();
-        }
-    }
-
     private NoteCursorWrapper queryNote(String selection, String[] selectionArgs, String orderBy) {
         Cursor cursor = mDatabase.query(
                 NoteTable.NAME,
@@ -75,6 +41,41 @@ public class NoteModelLab {
                 orderBy // orderBy
         );
         return new NoteCursorWrapper(cursor);
+    }
+
+    // Получить полный список упражнений
+    public List<NoteModel> getNotes(String selection, String[] selectionArgs, String orderBy) {
+
+        List<NoteModel> mNotesModel = new ArrayList<>();
+
+        NoteCursorWrapper cursor = queryNote(selection, selectionArgs, orderBy);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                mNotesModel.add(cursor.getNote());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return mNotesModel;
+    }
+
+    public NoteModel getNote(String selection, String[] selectionArgs, String orderBy){
+
+        NoteCursorWrapper cursor = queryNote(selection, selectionArgs, orderBy);
+
+        try {
+            if(cursor.getCount() == 0){
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getNote();
+        }finally {
+            cursor.close();
+        }
     }
 
     private static ContentValues getContentValues(NoteModel noteModel) {

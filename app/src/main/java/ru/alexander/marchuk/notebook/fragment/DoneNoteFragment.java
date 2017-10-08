@@ -33,7 +33,6 @@ public class DoneNoteFragment extends NoteFragment {
     NoteRestoreListener mNoteRestoreListener;
 
     public interface NoteRestoreListener {
-        // Удаление упражнения из программы
         void onNoteRestore(NoteModel note);
     }
 

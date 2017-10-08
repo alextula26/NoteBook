@@ -7,20 +7,23 @@ import android.provider.BaseColumns;
 
 import ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteTable;
 
+import static ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteDetailTable;
+
 
 public class NoteBaseHelper extends SQLiteOpenHelper {
 
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
     private static final String DATABASE_NAME = "notebook.db";
 
     public static final String SELECTION_STATUS = NoteTable.Cols.STATUS + " = ?";
     public static final String SELECTION_UUID = NoteTable.Cols.UUID + " = ?";
     public static final String SELECTION_LIKE_TITLE = NoteTable.Cols.TITLE + " LIKE ?";
 
+    public static final String SELECTION_NOTEID = NoteDetailTable.Cols.NOTEID + " = ?";
+
     public NoteBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
-
 
 
     @Override
@@ -34,6 +37,17 @@ public class NoteBaseHelper extends SQLiteOpenHelper {
                 NoteTable.Cols.STATUS + " INTEGER" +
                 ")"
         );
+
+        db.execSQL("CREATE TABLE " + NoteDetailTable.NAME + "(" +
+                BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                NoteDetailTable.Cols.UUID + " LONG, " +
+                NoteDetailTable.Cols.NOTEID + " LONG, " +
+                NoteDetailTable.Cols.TITLE + " TEXT NOT NULL, " +
+                NoteDetailTable.Cols.DESCRIPTION + " TEXT NOT NULL, " +
+                NoteDetailTable.Cols.STATUS + " INTEGER" +
+                ")"
+        );
+
     }
 
     @Override

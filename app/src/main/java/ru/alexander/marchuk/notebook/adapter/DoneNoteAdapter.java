@@ -30,7 +30,7 @@ public class DoneNoteAdapter extends NoteAdapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycler_item_note, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_note_recycler_item, parent, false);
 
         TextView title = (TextView) view.findViewById(R.id.txt_title);
         TextView date = (TextView) view.findViewById(R.id.txt_date);

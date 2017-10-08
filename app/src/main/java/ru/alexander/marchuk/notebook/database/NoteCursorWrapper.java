@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.UUID;
 
 import ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteTable;
+import ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteDetailTable;
 import ru.alexander.marchuk.notebook.model.NoteModel;
+import ru.alexander.marchuk.notebook.model.NoteDetailModel;
+
 
 public class NoteCursorWrapper extends CursorWrapper {
 
@@ -30,4 +33,23 @@ public class NoteCursorWrapper extends CursorWrapper {
 
         return noteModel;
     }
+
+    public NoteDetailModel getNoteDetail(){
+
+        String uuid = getString(getColumnIndex(NoteDetailTable.Cols.UUID));
+        Long noteID = getLong(getColumnIndex(NoteDetailTable.Cols.NOTEID));
+        String title = getString(getColumnIndex(NoteDetailTable.Cols.TITLE));
+        String description = getString(getColumnIndex(NoteDetailTable.Cols.DESCRIPTION));
+        int status = getInt(getColumnIndex(NoteDetailTable.Cols.STATUS));
+
+        NoteDetailModel noteDetailModel = new NoteDetailModel(UUID.fromString(uuid));
+        noteDetailModel.setNoteId(noteID);
+        noteDetailModel.setTitle(title);
+        noteDetailModel.setDescription(description);
+        noteDetailModel.setStatus(status);
+
+        return noteDetailModel;
+
+    }
+
 }
