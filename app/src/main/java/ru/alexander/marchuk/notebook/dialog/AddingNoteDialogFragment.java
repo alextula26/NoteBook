@@ -291,10 +291,8 @@ public class AddingNoteDialogFragment extends DialogFragment {
     private void positiveButtonEnable(Button positiveButton){
         if(bTitle && bDate && bTime){
             positiveButton.setEnabled(true);
-            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }else{
             positiveButton.setEnabled(false);
-            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }
     }
 

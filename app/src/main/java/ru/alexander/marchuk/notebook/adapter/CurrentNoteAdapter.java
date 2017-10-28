@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.alexander.marchuk.notebook.R;
 import ru.alexander.marchuk.notebook.Utils;
+import ru.alexander.marchuk.notebook.database.NoteBaseHelper;
+import ru.alexander.marchuk.notebook.database.NoteDbScheme;
+import ru.alexander.marchuk.notebook.model.NoteDetailModel;
 import ru.alexander.marchuk.notebook.model.NoteModel;
 import ru.alexander.marchuk.notebook.model.NoteModelLab;
 import ru.alexander.marchuk.notebook.model.NoteSeparator;
@@ -26,6 +33,8 @@ public class CurrentNoteAdapter extends NoteAdapter {
 
     private static final int TYPE_NOTE = 0;
     private static final int TYPE_SEPARATOR = 1;
+
+    List<NoteDetailModel> mNotesDetails;
 
     public CurrentNoteAdapter(CurrentNoteFragment currentNoteFragment) {
         super(currentNoteFragment);
@@ -64,7 +73,6 @@ public class CurrentNoteAdapter extends NoteAdapter {
             default:
                 return null;
         }
-
     }
 
     @Override
@@ -97,6 +105,20 @@ public class CurrentNoteAdapter extends NoteAdapter {
                 public void onClick(View v) {
                     PopupMenu popupMenu = new PopupMenu(getNoteFragment().getActivity(), noteViewHolder.mPopupMenu);
                     popupMenu.inflate(R.menu.popupmenu_current);
+
+                    mNotesDetails = new ArrayList<>();
+                    mNotesDetails.addAll(NoteModelLab.get(getNoteFragment().getActivity()).getNotesDetail(
+                            NoteBaseHelper.SELECTION_NOTE_DETAIL_NOTEID + " AND " + NoteBaseHelper.SELECTION_NOTE_DETAIL_STATUS,
+                            new String[]{noteModel.getId().toString(), Integer.toString(NoteDetailModel.STATUS_CURRENT_NOTE_DETAIL)},
+                            null));
+                    if (mNotesDetails.size() != 0) {
+                        Log.d("LOG", "Список полн, id = " + noteModel.getId().toString());
+                        popupMenu.getMenu().findItem(R.id.popupmenu_done).setEnabled(false);
+                        popupMenu.getMenu().findItem(R.id.popupmenu_delete).setEnabled(false);
+                    }else{
+                        Log.d("LOG", "Список пуст id = " + noteModel.getId().toString());
+                    }
+
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
@@ -135,7 +157,7 @@ public class CurrentNoteAdapter extends NoteAdapter {
             SeparatorViewHolder separatorViewHolder = (SeparatorViewHolder) holder;
 
             separatorViewHolder.mType.setText(holder.itemView.getResources().getString(separator.getType()));
-            switch (separator.getType()){
+            switch (separator.getType()) {
                 case NoteSeparator.TYPE_OVERDUE:
                     separatorViewHolder.mType.setTextColor(ContextCompat.getColor(getNoteFragment().getActivity(), R.color.separator_overdue));
                     break;
@@ -154,11 +176,11 @@ public class CurrentNoteAdapter extends NoteAdapter {
         }
     }
 
-    private void moveItemNote(final NoteViewHolder noteViewHolder, final View itemView, final NoteModel noteModel){
+    private void moveItemNote(final NoteViewHolder noteViewHolder, final View itemView, final NoteModel noteModel) {
         itemView.setEnabled(false);
         noteModel.setStatus(NoteModel.STATUS_DONE_NOTE);
         NoteModelLab.get(getNoteFragment().getActivity())
-                .updateStatus(noteModel.getId().toString(), Integer.toString(NoteModel.STATUS_DONE_NOTE));
+                .updateNoteStatus(noteModel.getId().toString(), Integer.toString(NoteModel.STATUS_DONE_NOTE));
         if (noteModel.getStatus() == NoteModel.STATUS_DONE_NOTE) {
             ObjectAnimator translationX = ObjectAnimator.ofFloat(itemView,
                     "translationX", 0f, itemView.getWidth());

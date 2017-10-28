@@ -1,10 +1,6 @@
 package ru.alexander.marchuk.notebook.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +16,7 @@ import ru.alexander.marchuk.notebook.model.NoteSeparator;
 
 public class CurrentNoteFragment extends NoteFragment {
 
-    private static CurrentNoteFragment sCurrentNoteFragment;
+    private  static CurrentNoteFragment sCurrentNoteFragment;
 
     public static CurrentNoteFragment newInstance(){
         if(sCurrentNoteFragment == null){
@@ -30,13 +26,11 @@ public class CurrentNoteFragment extends NoteFragment {
     }
 
     public CurrentNoteFragment() {
-//        Log.d("LOG", "CurrentNoteFragment id = " + this.hashCode());
     }
 
     AddingNoteInDoneListener mAddingNoteInDoneListener;
 
     public interface AddingNoteInDoneListener {
-        // Добавление упражнения в программу
         void onNoteAddedDone(NoteModel note);
     }
 
@@ -51,17 +45,11 @@ public class CurrentNoteFragment extends NoteFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        Log.d("LOG", "onCreate CurrentNoteFragment id = " + this.hashCode() + " activity id = " + getActivity().hashCode());
-    }
-
-    @Override
     public void addNoteFromDB() {
         mAdapter.removeAllItem();
         List<NoteModel> notes = new ArrayList<>();
-        notes.addAll(NoteModelLab.get(getActivity()).getNotes(NoteBaseHelper.SELECTION_STATUS + " OR "
-                + NoteBaseHelper.SELECTION_STATUS, new String[]{Integer.toString(NoteModel.STATUS_CURRENT_NOTE),
+        notes.addAll(NoteModelLab.get(getActivity()).getNotes(NoteBaseHelper.SELECTION_NOTE_STATUS + " OR "
+                + NoteBaseHelper.SELECTION_NOTE_STATUS, new String[]{Integer.toString(NoteModel.STATUS_CURRENT_NOTE),
                 Integer.toString(NoteModel.STATUS_OVERDUE)}, NoteTable.Cols.DATE));
 
         for (int i = 0; i < notes.size(); i++) {
@@ -136,7 +124,6 @@ public class CurrentNoteFragment extends NoteFragment {
             if (separator != null) {
                 mAdapter.addItem(position - 1, separator);
             }
-
             mAdapter.addItem(position, newNote);
         } else {
             if (separator != null) {
@@ -157,9 +144,9 @@ public class CurrentNoteFragment extends NoteFragment {
         List<NoteModel> notes = new ArrayList<>();
 
         notes.addAll(NoteModelLab.get(getActivity()).getNotes(
-                NoteBaseHelper.SELECTION_LIKE_TITLE + " AND " +
-                        NoteBaseHelper.SELECTION_STATUS + " OR " +
-                        NoteBaseHelper.SELECTION_STATUS,
+                NoteBaseHelper.SELECTION_NOTE_LIKE_TITLE + " AND " +
+                        NoteBaseHelper.SELECTION_NOTE_STATUS + " OR " +
+                        NoteBaseHelper.SELECTION_NOTE_STATUS,
                 new String[]{
                         "%" + title + "%",
                         Integer.toString(NoteModel.STATUS_CURRENT_NOTE),

@@ -22,7 +22,6 @@ public class NoteDbScheme {
             public static final String UUID = "uuid";
             public static final String NOTEID = "note_id";
             public static final String TITLE = "title";
-            public static final String DESCRIPTION = "description";
             public static final String STATUS = "status";
 
         }

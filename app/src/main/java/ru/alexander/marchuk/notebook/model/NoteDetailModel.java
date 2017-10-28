@@ -8,15 +8,19 @@ public class NoteDetailModel implements Item, Serializable {
     private String mTitle;
     private String mDescription;
     private UUID mId;
-    private Long mNoteId;
+    private String mNoteId;
     private int mStatus;
+
+    public static final int STATUS_NEW_NOTE_DETAIL = 1;
+    public static final int STATUS_CURRENT_NOTE_DETAIL = 1;
+    public static final int STATUS_DONE_NOTE_DETAIL = 0;
 
     public NoteDetailModel(){
         this(UUID.randomUUID());
     }
 
     public NoteDetailModel(UUID id){
-        mStatus = -1;
+        mStatus = 1;
         mId = id;
     }
 
@@ -48,11 +52,11 @@ public class NoteDetailModel implements Item, Serializable {
         mDescription = description;
     }
 
-    public Long getNoteId() {
+    public String getNoteId() {
         return mNoteId;
     }
 
-    public void setNoteId(Long noteId) {
+    public void setNoteId(String noteId) {
         mNoteId = noteId;
     }
 

@@ -42,13 +42,12 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentManager = getSupportFragmentManager();
-
         setUI();
-
     }
 
     private void setUI() {
+
+        fragmentManager = getSupportFragmentManager();
 
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(
                 R.id.collapse_toolbar);

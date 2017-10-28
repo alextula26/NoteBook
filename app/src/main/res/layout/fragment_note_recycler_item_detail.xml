@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,42 +13,58 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="16dp"
-        android:paddingEnd="0dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="0dp"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp">
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:id="@+id/container_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="48dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/dark"
+                android:textSize="16sp"
+                tools:text="title"/>
+
+            <Switch
+                android:id="@+id/btn_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@+id/popupmenu"
-            android:layout_toStartOf="@+id/popupmenu">
+            android:layout_below="@id/container_dialog">
 
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:foreground="?selectableItemBackground"
+                app:srcCompat="@mipmap/ic_delete"/>
 
-            <TextView
-                android:id="@+id/name_b"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_date"
-                android:textColor="@color/dark"
-                tools:text="title"/>
-
+            <ImageView
+                android:id="@+id/img_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:foreground="?selectableItemBackground"
+                app:srcCompat="@mipmap/ic_edit"/>
 
         </RelativeLayout>
 
-
-
     </RelativeLayout>
-
 </android.support.v7.widget.CardView>
-
-
-
-
-
-

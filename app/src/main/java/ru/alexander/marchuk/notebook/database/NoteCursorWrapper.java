@@ -37,19 +37,15 @@ public class NoteCursorWrapper extends CursorWrapper {
     public NoteDetailModel getNoteDetail(){
 
         String uuid = getString(getColumnIndex(NoteDetailTable.Cols.UUID));
-        Long noteID = getLong(getColumnIndex(NoteDetailTable.Cols.NOTEID));
+        String noteID = getString(getColumnIndex(NoteDetailTable.Cols.NOTEID));
         String title = getString(getColumnIndex(NoteDetailTable.Cols.TITLE));
-        String description = getString(getColumnIndex(NoteDetailTable.Cols.DESCRIPTION));
         int status = getInt(getColumnIndex(NoteDetailTable.Cols.STATUS));
 
         NoteDetailModel noteDetailModel = new NoteDetailModel(UUID.fromString(uuid));
         noteDetailModel.setNoteId(noteID);
         noteDetailModel.setTitle(title);
-        noteDetailModel.setDescription(description);
         noteDetailModel.setStatus(status);
 
         return noteDetailModel;
-
     }
-
 }

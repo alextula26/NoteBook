@@ -12,14 +12,16 @@ import static ru.alexander.marchuk.notebook.database.NoteDbScheme.NoteDetailTabl
 
 public class NoteBaseHelper extends SQLiteOpenHelper {
 
-    private static final int VERSION = 3;
+    private static final int VERSION = 6;
     private static final String DATABASE_NAME = "notebook.db";
 
-    public static final String SELECTION_STATUS = NoteTable.Cols.STATUS + " = ?";
-    public static final String SELECTION_UUID = NoteTable.Cols.UUID + " = ?";
-    public static final String SELECTION_LIKE_TITLE = NoteTable.Cols.TITLE + " LIKE ?";
+    public static final String SELECTION_NOTE_STATUS = NoteTable.Cols.STATUS + " = ?";
+    public static final String SELECTION_NOTE_UUID = NoteTable.Cols.UUID + " = ?";
+    public static final String SELECTION_NOTE_LIKE_TITLE = NoteTable.Cols.TITLE + " LIKE ?";
 
-    public static final String SELECTION_NOTEID = NoteDetailTable.Cols.NOTEID + " = ?";
+    public static final String SELECTION_NOTE_DETAIL_NOTEID = NoteDetailTable.Cols.NOTEID + " = ?";
+    public static final String SELECTION_NOTE_DETAIL_UUID = NoteDetailTable.Cols.UUID + " = ?";
+    public static final String SELECTION_NOTE_DETAIL_STATUS = NoteDetailTable.Cols.STATUS + " = ?";
 
     public NoteBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -43,7 +45,6 @@ public class NoteBaseHelper extends SQLiteOpenHelper {
                 NoteDetailTable.Cols.UUID + " LONG, " +
                 NoteDetailTable.Cols.NOTEID + " LONG, " +
                 NoteDetailTable.Cols.TITLE + " TEXT NOT NULL, " +
-                NoteDetailTable.Cols.DESCRIPTION + " TEXT NOT NULL, " +
                 NoteDetailTable.Cols.STATUS + " INTEGER" +
                 ")"
         );
@@ -53,6 +54,7 @@ public class NoteBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE " + NoteTable.NAME);
+        db.execSQL("DROP TABLE " + NoteDetailTable.NAME);
         onCreate(db);
     }
 }

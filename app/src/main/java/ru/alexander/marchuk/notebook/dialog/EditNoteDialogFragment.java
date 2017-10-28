@@ -13,13 +13,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import ru.alexander.marchuk.notebook.R;
@@ -75,14 +73,13 @@ public class EditNoteDialogFragment extends DialogFragment {
         try {
             mEditingNoteListener = (EditingNoteListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement AddingNoteListener");
+            throw new ClassCastException(context.toString() + " must implement EditingNoteListener");
         }
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mNote = (NoteModel) getArguments().getSerializable(ARG_NOTE);
     }
 
@@ -306,12 +303,9 @@ public class EditNoteDialogFragment extends DialogFragment {
     private void positiveButtonEnable(Button positiveButton){
         if(bTitle && bDate && bTime){
             positiveButton.setEnabled(true);
-            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }else{
             positiveButton.setEnabled(false);
-            Log.d("LOG", "bTitle = " + bTitle + ", bDate = " + bDate + ", bTime = " + bTime);
         }
-
     }
 
     @Override

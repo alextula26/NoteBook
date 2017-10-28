@@ -103,7 +103,7 @@ public class DoneNoteAdapter extends NoteAdapter {
         itemView.setEnabled(false);
         noteModel.setStatus(NoteModel.STATUS_CURRENT_NOTE);
         NoteModelLab.get(getNoteFragment().getActivity())
-                .updateStatus(noteModel.getId().toString(), Integer.toString(NoteModel.STATUS_CURRENT_NOTE));
+                .updateNoteStatus(noteModel.getId().toString(), Integer.toString(NoteModel.STATUS_CURRENT_NOTE));
 
         if (noteModel.getStatus() != NoteModel.STATUS_DONE_NOTE) {
 

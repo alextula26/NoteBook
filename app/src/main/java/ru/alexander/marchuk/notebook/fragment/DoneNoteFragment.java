@@ -3,7 +3,6 @@ package ru.alexander.marchuk.notebook.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +60,7 @@ public class DoneNoteFragment extends NoteFragment {
     public void addNoteFromDB() {
         mAdapter.removeAllItem();
         List<NoteModel> notes = new ArrayList<>();
-        notes.addAll(NoteModelLab.get(getActivity()).getNotes(NoteBaseHelper.SELECTION_STATUS,
+        notes.addAll(NoteModelLab.get(getActivity()).getNotes(NoteBaseHelper.SELECTION_NOTE_STATUS,
                 new String[]{Integer.toString(NoteModel.STATUS_DONE_NOTE)}, NoteTable.Cols.DATE));
 
         for (int i = 0; i < notes.size(); i++) {
@@ -99,7 +98,7 @@ public class DoneNoteFragment extends NoteFragment {
         mAdapter.removeAllItem();
         List<NoteModel> notes = new ArrayList<>();
         notes.addAll(NoteModelLab.get(getActivity()).getNotes(
-                NoteBaseHelper.SELECTION_LIKE_TITLE + " AND " + NoteBaseHelper.SELECTION_STATUS,
+                NoteBaseHelper.SELECTION_NOTE_LIKE_TITLE + " AND " + NoteBaseHelper.SELECTION_NOTE_STATUS,
                 new String[]{
                         "%" + title + "%",
                         Integer.toString(NoteModel.STATUS_DONE_NOTE)

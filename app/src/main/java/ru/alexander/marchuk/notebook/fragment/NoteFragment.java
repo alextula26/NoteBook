@@ -88,8 +88,8 @@ public abstract class NoteFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             addNote(NoteModelLab.get(getActivity()).getNote(
-                                    NoteBaseHelper.SELECTION_UUID,
-                                    new String[]{String.valueOf(uuid)},
+                                    NoteBaseHelper.SELECTION_NOTE_UUID,
+                                    new String[]{uuid.toString()},
                                     NoteTable.Cols.DATE
                             ), false);
                             isRemoved[0] = false;
